@@ -138,5 +138,25 @@ document.getElementById("teamSelect").addEventListener("change", function() {
     this.value ? "Избран отбор: " + team : "";
 });
 </script>
+<script>
+const exampleStats = {
+  "manchester-united": [15, 5, 7, 22],
+  "fulham": [8, 3, 4, 15],
+  "arsenal": [12, 4, 9, 18],
+  "liverpool": [11, 2, 8, 16],
+  "chelsea": [10, 3, 6, 19],
+  "manchester-city": [13, 2, 10, 14]
+};
+
+document.getElementById("teamSelect").addEventListener("change", function() {
+  const stats = exampleStats[this.value];
+  if (!stats) return;
+
+  document.getElementById("corners").textContent = stats[0];
+  document.getElementById("yellowCards").textContent = stats[1];
+  document.getElementById("shotsOnGoal").textContent = stats[2];
+  document.getElementById("fouls").textContent = stats[3];
+});
+</script>
   </body>
 </html>
