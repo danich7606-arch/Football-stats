@@ -158,5 +158,15 @@ document.getElementById("teamSelect").addEventListener("change", function() {
   document.getElementById("fouls").textContent = stats[3];
 });
 </script>
+ <script>
+fetch("stats.json")
+  .then(response => response.json())
+  .then(data => {
+    console.log("Истински данни от API-Football:", data);
+  })
+  .catch(error => {
+    console.error("Грешка при зареждането:", error);
+  });
+</script>
   </body>
 </html>
