@@ -46,7 +46,21 @@
     }
   </style>
 </head>
-<body>
+<script>
+  const teamSelect = document.getElementById("teamSelect");
+
+  teamSelect.addEventListener("change", function() {
+    const teamName = teamSelect.options[teamSelect.selectedIndex].text;
+
+    if (teamSelect.value !== "") {
+      document.getElementById("selectedTeam").textContent =
+        "Избран отбор: " + teamName;
+    } else {
+      document.getElementById("selectedTeam").textContent = "";
+    }
+  });
+</script>
+  <body>
   <header>
     <h1>⚽ Football Stats</h1>
     <p>Футболна статистика и анализи</p>
@@ -88,6 +102,7 @@
   <option value="chelsea">Челси</option>
   <option value="manchester-city">Манчестър Сити</option>
 </select>
+    <p id="selectedTeam"></p>
     </div>
 
     <div class="card">
