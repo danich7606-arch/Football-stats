@@ -1,0 +1,91 @@
+
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Football Stats</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: Arial, sans-serif;
+      background: #101827;
+      color: white;
+    }
+    header {
+      background: #17243a;
+      padding: 25px;
+      text-align: center;
+    }
+    h1 { color: #53e0a1; }
+    main {
+      max-width: 900px;
+      margin: auto;
+      padding: 25px;
+    }
+    .card {
+      background: #1d2c43;
+      border-radius: 12px;
+      padding: 20px;
+      margin: 15px 0;
+    }
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 12px;
+    }
+    .number {
+      color: #53e0a1;
+      font-size: 28px;
+      font-weight: bold;
+    }
+    select {
+      padding: 12px;
+      border-radius: 8px;
+      width: 100%;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>⚽ Football Stats</h1>
+    <p>Футболна статистика и анализи</p>
+  </header>
+
+  <main>
+    <div class="card">
+      <h2>Избери първенство</h2>
+      <select>
+        <option>Premier League - Англия</option>
+      </select>
+      <p>Сезон: 2024/2025</p>
+    </div>
+
+    <div class="card">
+      <h2>Манчестър Юнайтед - Фулъм</h2>
+      <p>Пример от проверените API данни</p>
+
+      <div class="stats">
+        <div>
+          <p>Общо корнери</p>
+          <div class="number">15</div>
+        </div>
+        <div>
+          <p>Жълти картони</p>
+          <div class="number">5</div>
+        </div>
+        <div>
+          <p>Удари във вратата</p>
+          <div class="number">7</div>
+        </div>
+        <div>
+          <p>Нарушения</p>
+          <div class="number">22</div>
+        </div>
+      </div>
+    </div>
+
+    <p>Демо версия. Автоматичните анализи предстоят.</p>
+  </main>
+</body>
+</html>
