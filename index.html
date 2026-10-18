@@ -163,6 +163,10 @@ fetch("stats.json")
   .then(response => response.json())
   .then(data => {
     console.log("Истински данни от API-Football:", data);
+    document.getElementById("corners").textContent = data.corners;
+document.getElementById("yellowCards").textContent = data.yellow_cards;
+document.getElementById("shotsOnGoal").textContent = data.shots_on_goal;
+document.getElementById("fouls").textContent = data.fouls;
   })
   .catch(error => {
     console.error("Грешка при зареждането:", error);
