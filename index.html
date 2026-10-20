@@ -3,160 +3,198 @@
 <html lang="bg">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Football Stats</title>
   <style>
+    * { box-sizing: border-box; }
     body {
       margin: 0;
       font-family: Arial, sans-serif;
-      background: #101827;
-      color: white;
+      background: #101b2a;
+      color: #fff;
     }
     header {
-      background: #17243a;
-      padding: 25px;
+      background: #172a40;
+      padding: 25px 16px;
       text-align: center;
+      border-bottom: 3px solid #25b66c;
     }
-    h1 { color: #53e0a1; }
-    main {
-      max-width: 900px;
-      margin: auto;
-      padding: 25px;
-    }
-    .card {
-      background: #1d2c43;
-      border-radius: 12px;
+    h1 { margin: 0; color: #42df90; }
+    header p { color: #b8c7d8; }
+    main { max-width: 950px; margin: auto; padding: 20px; }
+    .panel {
+      background: #1c3047;
       padding: 20px;
-      margin: 15px 0;
-    }
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(2, 1fr);
-      gap: 12px;
-    }
-    .number {
-      color: #53e0a1;
-      font-size: 28px;
-      font-weight: bold;
+      border-radius: 12px;
+      margin-bottom: 18px;
     }
     select {
       padding: 12px;
+      background: #102033;
+      color: white;
+      border: 1px solid #52718c;
       border-radius: 8px;
-      width: 100%;
+      font-size: 16px;
+      margin: 8px 8px 8px 0;
     }
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(145px, 1fr));
+      gap: 12px;
+    }
+    .card {
+      background: #233c56;
+      border-radius: 10px;
+      padding: 18px;
+      text-align: center;
+    }
+    .number { font-size: 30px; font-weight: bold; color: #42df90; }
+    .label { color: #b8c7d8; margin-top: 7px; }
+    .match {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 13px 0;
+      border-bottom: 1px solid #38516a;
+    }
+    .match:last-child { border-bottom: none; }
+    .result { font-weight: bold; white-space: nowrap; }
+    .note { color: #b8c7d8; font-size: 14px; }
+    .error { color: #ffb3b3; }
   </style>
 </head>
-<script>
-  const teamSelect = document.getElementById("teamSelect");
-
-  teamSelect.addEventListener("change", function() {
-    const teamName = teamSelect.options[teamSelect.selectedIndex].text;
-
-    if (teamSelect.value !== "") {
-      document.getElementById("selectedTeam").textContent =
-        "Избран отбор: " + teamName;
-    } else {
-      document.getElementById("selectedTeam").textContent = "";
-    }
-  });
-</script>
-  <body>
+<body>
   <header>
     <h1>⚽ Football Stats</h1>
-    <p>Футболна статистика и анализи</p>
+    <p>Реални футболни резултати и статистика</p>
   </header>
 
   <main>
-    <div class="card">
-      <h2>Избери първенство</h2>
-      <select>
-  <option>🇬🇧 Premier League - Англия</option>
-  <option>🇪🇸 La Liga - Испания</option>
-  <option>🇮🇹 Serie A - Италия</option>
-  <option>🇩🇪 Bundesliga - Германия</option>
-  <option>🇧🇬 Първа лига - България</option>
-  <option>🏆 Шампионска лига</option>
-  <option>🇫🇷 Ligue 1 - Франция</option>
-  <option>🏆 Лига Европа</option>
-  <option>🏆 Лига на конференциите</option>
-  <option>🇹🇷 Süper Lig - Турция</option>
-</select>
-      <p>Сезон: 2024/2025</p>
-   <p>Брой мачове за анализ:</p>
-<select id="matchCount">
-  <option value="5">Последни 5 мача</option>
-  <option value="10">Последни 10 мача</option>
-<p>Тип мачове за анализ:</p>
-<select id="matchType">
-  <option value="all">Всички мачове</option>
-  <option value="home">Само домакински</option>
-  <option value="away">Само гостуващи</option>
-</select>
-  <p>Избери отбор:</p>
-<select id="teamSelect">
-  <option value="">-- Избери отбор --</option>
-  <option value="manchester-united">Манчестър Юнайтед</option>
-  <option value="fulham">Фулъм</option>
-  <option value="arsenal">Арсенал</option>
-  <option value="liverpool">Ливърпул</option>
-  <option value="chelsea">Челси</option>
-  <option value="manchester-city">Манчестър Сити</option>
-</select>
-    <p id="selectedTeam"></p>
-    </div>
+    <section class="panel">
+      <h2>Избери отбор и брой мачове</h2>
+      <select id="team">
+        <option value="33">Манчестър Юнайтед</option>
+      </select>
+      <select id="count">
+        <option value="5">Последни 5 мача</option>
+        <option value="10">Последни 10 мача</option>
+      </select>
+      <p class="note">
+        Данни от сезон 2024. Засега е наличен Манчестър Юнайтед.
+      </p>
+    </section>
 
-    <div class="card">
-      <h2>Манчестър Юнайтед - Фулъм</h2>
-      <p id="statsSource">
-  Реални данни от API-Football: Манчестър Юнайтед – Фулъм,
-  сезон 2024/2025. Статистика за един мач.
-</p>
+    <section class="panel">
+      <h2 id="heading">Статистика</h2>
+      <p id="status">Зареждане...</p>
+      <div class="cards" id="cards"></div>
+    </section>
 
-      <div class="stats">
-        <div>
-          <p>Общо корнери</p>
-         <div class="number" id="corners">15</div>
-        </div>
-        <div>
-          <p>Жълти картони</p>
-         <div class="number" id="yellowCards">5</div>
-        </div>
-        <div>
-          <p>Удари във вратата</p>
-         <div class="number" id="shotsOnGoal">7</div>
-        </div>
-        <div>
-          <p>Нарушения</p>
-         <div class="number" id="fouls">22</div>
-        </div>
-      </div>
-    </div>
-
-    <p>Демо версия. Автоматичните анализи предстоят.</p>
+    <section class="panel">
+      <h2>Резултати от мачовете</h2>
+      <div id="matches"></div>
+    </section>
   </main>
-<script>
-document.getElementById("teamSelect").addEventListener("change", function() {
-  const team = this.options[this.selectedIndex].text;
-  document.getElementById("selectedTeam").textContent =
-    this.value ? "Избран отбор: " + team : "";
-});
-</script>
-<script>
 
-</script>
- <script>
-fetch("stats.json")
-  .then(response => response.json())
-  .then(data => {
-    console.log("Истински данни от API-Football:", data);
-    document.getElementById("corners").textContent = data.corners;
-document.getElementById("yellowCards").textContent = data.yellow_cards;
-document.getElementById("shotsOnGoal").textContent = data.shots_on_goal;
-document.getElementById("fouls").textContent = data.fouls;
-  })
-  .catch(error => {
-    console.error("Грешка при зареждането:", error);
-  });
-</script>
-  </body>
+  <script>
+    const TEAM_ID = 33;
+    let allMatches = [];
+
+    function card(label, value) {
+      return `<div class="card">
+        <div class="number">${value}</div>
+        <div class="label">${label}</div>
+      </div>`;
+    }
+
+    function showStats() {
+      const count = Number(document.getElementById("count").value);
+
+      const finished = allMatches
+        .filter(m =>
+          m.teams?.home?.id === TEAM_ID ||
+          m.teams?.away?.id === TEAM_ID
+        )
+        .filter(m =>
+          ["FT", "AET", "PEN"].includes(m.fixture?.status?.short)
+        )
+        .filter(m =>
+          Number.isFinite(m.goals?.home) &&
+          Number.isFinite(m.goals?.away)
+        )
+        .sort((a, b) =>
+          new Date(b.fixture.date) - new Date(a.fixture.date)
+        )
+        .slice(0, count);
+
+      let wins = 0, draws = 0, losses = 0;
+      let scored = 0, conceded = 0;
+
+      const rows = finished.map(m => {
+        const home = m.teams.home.id === TEAM_ID;
+        const own = home ? m.goals.home : m.goals.away;
+        const other = home ? m.goals.away : m.goals.home;
+
+        scored += own;
+        conceded += other;
+
+        if (own > other) wins++;
+        else if (own === other) draws++;
+        else losses++;
+
+        const date = new Date(m.fixture.date)
+          .toLocaleDateString("bg-BG");
+
+        const homeName = m.teams.home.name;
+        const awayName = m.teams.away.name;
+
+        return `<div class="match">
+          <span>${date}: ${homeName} – ${awayName}</span>
+          <span class="result">${m.goals.home} : ${m.goals.away}</span>
+        </div>`;
+      });
+
+      document.getElementById("heading").textContent =
+        `Манчестър Юнайтед – последни ${finished.length} мача`;
+
+      document.getElementById("status").textContent =
+        finished.length
+          ? "Реални резултати от API-Football"
+          : "Няма намерени завършили мачове.";
+
+      document.getElementById("cards").innerHTML =
+        card("Победи", wins) +
+        card("Равенства", draws) +
+        card("Загуби", losses) +
+        card("Вкарани голове", scored) +
+        card("Допуснати голове", conceded) +
+        card("Средно вкарани голове",
+          finished.length ? (scored / finished.length).toFixed(2) : "0");
+
+      document.getElementById("matches").innerHTML =
+        rows.join("") || "<p>Няма данни за мачове.</p>";
+    }
+
+    fetch("matches.json")
+      .then(response => {
+        if (!response.ok) throw new Error("Файлът не е достъпен");
+        return response.json();
+      })
+      .then(data => {
+        if (!Array.isArray(data.response)) {
+          throw new Error("Невалидни данни от API");
+        }
+        allMatches = data.response;
+        showStats();
+      })
+      .catch(error => {
+        document.getElementById("status").textContent =
+          "Грешка при зареждането: " + error.message;
+        document.getElementById("status").className = "error";
+      });
+
+    document.getElementById("count")
+      .addEventListener("change", showStats);
+  </script>
+</body>
 </html>
